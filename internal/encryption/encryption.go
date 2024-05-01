@@ -11,7 +11,7 @@ import (
 	"log"
 )
 
-// function return cipher text and iv(nonce)
+// encrypt function return cipher text and iv(nonce)
 func encrypt(aesKey, xorText, iv []byte) (string, []byte) {
 	block, _ := aes.NewCipher(aesKey)
 	gcm, _ := cipher.NewGCM(block)
@@ -25,7 +25,7 @@ func encrypt(aesKey, xorText, iv []byte) (string, []byte) {
 	return base64.StdEncoding.EncodeToString(ciphertextWithTag), nonce
 }
 
-// function make xor from json data and aesKey
+// xor function make xor from json data and aesKey
 func xor(a, b []byte) []byte {
 	result := make([]byte, len(a))
 	for i := 0; i < len(a); i++ {
@@ -34,7 +34,7 @@ func xor(a, b []byte) []byte {
 	return result
 }
 
-// function encrypt symmetricKey with tax org public key
+// encryptSymmetricKey function encrypt symmetricKey with services org public key
 func encryptSymmetricKey(symmetricKey []byte, publicKey *rsa.PublicKey) (string, error) {
 	cipherText, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, publicKey, symmetricKey, nil)
 	if err != nil {

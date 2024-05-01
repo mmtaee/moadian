@@ -1,4 +1,4 @@
-package tax_id
+package taxid
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ func GenerateTaxID(fiscal string, serial int, timestamp int64) string {
 	tPad, tHex := timeNormalizer(timestamp)
 	sPad, sHex := serialNormalizer(serial)
 	verhoeffChSum := verhoeffCheckSum(fiscal, sPad, tPad)
-	return fiscal + tHex + sHex + verhoeffChSum
+	return strings.ToUpper(fiscal + tHex + sHex + verhoeffChSum)
 }
 
 // function create remain days from 1970 padded and hex padded

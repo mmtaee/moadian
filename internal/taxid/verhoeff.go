@@ -1,4 +1,4 @@
-package tax_id
+package taxid
 
 import "fmt"
 

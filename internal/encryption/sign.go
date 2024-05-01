@@ -14,8 +14,12 @@ func Sign(text string, privateKey *rsa.PrivateKey) ([]byte, string) {
 	return signature, base64.StdEncoding.EncodeToString(signature)
 }
 
-func Verify(data string, signature []byte, privateKey *rsa.PrivateKey) error {
+func Verify(data string, signature []byte, privateKey *rsa.PrivateKey) bool {
 	textBytes := []byte(data)
 	hash := sha256.Sum256(textBytes)
-	return rsa.VerifyPKCS1v15(&privateKey.PublicKey, crypto.SHA256, hash[:], signature)
+	err := rsa.VerifyPKCS1v15(&privateKey.PublicKey, crypto.SHA256, hash[:], signature)
+	if err != nil {
+		return false
+	}
+	return true
 }
