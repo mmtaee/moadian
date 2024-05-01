@@ -1,4 +1,4 @@
-package service
+package moadian
 
 import (
 	"crypto/rsa"
@@ -18,7 +18,7 @@ type Service struct {
 	Priority           string
 }
 
-func New(privateKey *rsa.PrivateKey, fiscalID string, economicCode string) *Service {
+func NewService(privateKey *rsa.PrivateKey, fiscalID string, economicCode string) *Service {
 	return &Service{
 		FiscalID:     fiscalID,
 		EconomicCode: economicCode,
