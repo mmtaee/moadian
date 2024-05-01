@@ -2,6 +2,7 @@ package moadian
 
 import (
 	"crypto/rsa"
+	"github.com/mmtaee/moadian/internal/tax_id"
 	"time"
 )
 
@@ -18,7 +19,7 @@ type Service struct {
 	Priority           string
 }
 
-func NewService(privateKey *rsa.PrivateKey, fiscalID string, economicCode string) *Service {
+func New(privateKey *rsa.PrivateKey, fiscalID string, economicCode string) *Service {
 	return &Service{
 		FiscalID:     fiscalID,
 		EconomicCode: economicCode,
@@ -27,4 +28,12 @@ func NewService(privateKey *rsa.PrivateKey, fiscalID string, economicCode string
 		Version:      "01",
 		Priority:     "normal-enqueue",
 	}
+}
+
+func (s *Service) GenerateTaxId(serial int, timestamp ...int64) string {
+	var t int64
+	if len(timestamp) > 0 {
+		t = timestamp[0]
+	}
+	return tax_id.GenerateTaxID(s.FiscalID, serial, t)
 }
